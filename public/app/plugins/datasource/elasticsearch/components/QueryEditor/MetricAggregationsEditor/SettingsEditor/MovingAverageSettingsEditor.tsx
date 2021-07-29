@@ -20,7 +20,7 @@ export const MovingAverageSettingsEditor = ({ metric }: Props) => {
     <>
       <InlineField label="Model" labelWidth={16}>
         <Select
-          onChange={(value) => dispatch(changeMetricSetting(metric, 'model', value.value!))}
+          onChange={(value) => dispatch(changeMetricSetting({ metric, settingName: 'model', newValue: value.value }))}
           options={movingAvgModelOptions}
           value={metric.settings?.model}
         />
@@ -35,9 +35,13 @@ export const MovingAverageSettingsEditor = ({ metric }: Props) => {
           <Input
             onBlur={(e) =>
               dispatch(
-                changeMetricSetting(metric, 'settings', {
-                  ...metric.settings?.settings,
-                  alpha: e.target.value,
+                changeMetricSetting({
+                  metric,
+                  settingName: 'settings',
+                  newValue: {
+                    ...metric.settings?.settings,
+                    alpha: e.target.value,
+                  },
                 })
               )
             }
@@ -51,9 +55,13 @@ export const MovingAverageSettingsEditor = ({ metric }: Props) => {
           <Input
             onBlur={(e) =>
               dispatch(
-                changeMetricSetting(metric, 'settings', {
-                  ...metric.settings?.settings,
-                  beta: e.target.value,
+                changeMetricSetting({
+                  metric,
+                  settingName: 'settings',
+                  newValue: {
+                    ...metric.settings?.settings,
+                    beta: e.target.value,
+                  },
                 })
               )
             }
@@ -68,9 +76,13 @@ export const MovingAverageSettingsEditor = ({ metric }: Props) => {
             <Input
               onBlur={(e) =>
                 dispatch(
-                  changeMetricSetting(metric, 'settings', {
-                    ...metric.settings?.settings,
-                    gamma: e.target.value,
+                  changeMetricSetting({
+                    metric,
+                    settingName: 'settings',
+                    newValue: {
+                      ...metric.settings?.settings,
+                      gamma: e.target.value,
+                    },
                   })
                 )
               }
@@ -81,9 +93,13 @@ export const MovingAverageSettingsEditor = ({ metric }: Props) => {
             <Input
               onBlur={(e) =>
                 dispatch(
-                  changeMetricSetting(metric, 'settings', {
-                    ...metric.settings?.settings,
-                    period: e.target.value!,
+                  changeMetricSetting({
+                    metric,
+                    settingName: 'settings',
+                    newValue: {
+                      ...metric.settings?.settings,
+                      period: e.target.value!,
+                    },
                   })
                 )
               }
@@ -95,7 +111,11 @@ export const MovingAverageSettingsEditor = ({ metric }: Props) => {
             <InlineSwitch
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 dispatch(
-                  changeMetricSetting(metric, 'settings', { ...metric.settings?.settings, pad: e.target.checked })
+                  changeMetricSetting({
+                    metric,
+                    settingName: 'settings',
+                    newValue: { ...metric.settings?.settings, pad: e.target.checked },
+                  })
                 )
               }
               checked={!!metric.settings?.settings?.pad}
@@ -108,7 +128,7 @@ export const MovingAverageSettingsEditor = ({ metric }: Props) => {
         <InlineField label="Minimize" labelWidth={16}>
           <InlineSwitch
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              dispatch(changeMetricSetting(metric, 'minimize', e.target.checked))
+              dispatch(changeMetricSetting({ metric, settingName: 'minimize', newValue: e.target.checked }))
             }
             checked={!!metric.settings?.minimize}
           />
